@@ -28,7 +28,10 @@ const selecoes = [
   },
 ];
 
-// função para fazer alguma coisa
+// função para fazer busca por id
+function buscarSelecaoPorId(id){
+    return selecoes.filter(selecao => selecao.id == id)
+}
 
 // criando rota na raiz
 app.get("/", (req, res) => {
@@ -45,5 +48,11 @@ app.post("/selecoes", (req, res) => {
   selecoes.push(req.body);
   res.status(201).send("Seleção cadastrado com sucesso!");
 });
+
+//Pesquisar seleção por id
+app.get("/selecoes/:id", (req, res) => {
+    let index = req.params.id
+    res.status(200).send(buscarSelecaoPorId(index))
+})
 
 export default app;
