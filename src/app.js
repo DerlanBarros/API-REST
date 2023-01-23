@@ -29,8 +29,13 @@ const selecoes = [
 ];
 
 // função para fazer busca por id
-function buscarSelecaoPorId(id){
-    return selecoes.filter(selecao => selecao.id == id)
+function buscarSelecaoPorId(id) {
+  return selecoes.filter((selecao) => selecao.id == id);
+}
+
+// função para buscar index da seleção
+function buscarIndexSelecao(index) {
+  return selecoes.findIndex((selecao) => selecao.index == index);
 }
 
 // criando rota na raiz
@@ -51,8 +56,15 @@ app.post("/selecoes", (req, res) => {
 
 //Pesquisar seleção por id
 app.get("/selecoes/:id", (req, res) => {
-    let index = req.params.id
-    res.status(200).send(buscarSelecaoPorId(index))
-})
+  let index = req.params.id;
+  res.status(200).send(buscarSelecaoPorId(index));
+});
+
+// Apagar seleçao por id
+app.delete("/selecoes/:id", (req, res) => {
+  let index = buscarIndexSelecao(req.params.id);
+  selecoes.splice(index, 1);
+  res.send("Seleção excluída com sucesso!");
+});
 
 export default app;
