@@ -67,4 +67,12 @@ app.delete("/selecoes/:id", (req, res) => {
   res.send("Seleção excluída com sucesso!");
 });
 
+//Atualiza selecao
+app.put('/selecoes/:id', (req, res) => {
+  let index = buscarIndexSelecao(req.params.id)
+  selecoes[index].time = req.body.time
+  selecoes[index].grupo = req.body.grupo
+  res.json(selecoes)
+});
+
 export default app;
