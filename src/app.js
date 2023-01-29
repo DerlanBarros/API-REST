@@ -34,30 +34,25 @@ function buscarSelecaoPorId(id) {
 }
 
 // função para buscar index da seleção
-function buscarIndexSelecao(index) {
-  return selecoes.findIndex((selecao) => selecao.index == index);
+function buscarIndexSelecao(id) {
+  return selecoes.findIndex((selecao) => selecao.id == id);
 }
-
-// criando rota na raiz
-app.get("/", (req, res) => {
-  res.status(200).send("Node JS");
-});
 
 // Criando uma rota para seleção
 app.get("/selecoes", (req, res) => {
   res.status(200).send(selecoes);
 });
 
-// Adicionando conteudo ao array
-app.post("/selecoes", (req, res) => {
-  selecoes.push(req.body);
-  res.status(201).send("Seleção cadastrado com sucesso!");
-});
-
 //Pesquisar seleção por id
 app.get("/selecoes/:id", (req, res) => {
   let index = req.params.id;
   res.status(200).send(buscarSelecaoPorId(index));
+});
+
+// Adicionando conteudo ao array
+app.post("/selecoes", (req, res) => {
+  selecoes.push(req.body);
+  res.status(201).send("Seleção cadastrado com sucesso!");
 });
 
 // Apagar seleçao por id
@@ -68,11 +63,11 @@ app.delete("/selecoes/:id", (req, res) => {
 });
 
 //Atualiza selecao
-app.put('/selecoes/:id', (req, res) => {
-  let index = buscarIndexSelecao(req.params.id)
-  selecoes[index].time = req.body.time
-  selecoes[index].grupo = req.body.grupo
-  res.json(selecoes)
+app.put("/selecoes/:id", (req, res) => {
+  let index = buscarIndexSelecao(req.params.id);
+  selecoes[index].time = req.body.time;
+  selecoes[index].grupo = req.body.grupo;
+  res.json(selecoes);
 });
 
 export default app;
